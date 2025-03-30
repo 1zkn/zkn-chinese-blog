@@ -1,0 +1,83 @@
+<article class="font-inconsolata mx-auto md:max-w-3xl">
+    <header>
+      <h1 class="text-2xl font-semibold text-slate-900"><%= page.title %></h1>
+      <div class="article-meta space-y-2 text-slate-600">
+        <!-- 第一行: 日期 -->
+        <% if (page.date || page.idea_date) { %>
+          <div class="flex items-center gap-2">
+            <% if (page.idea_date) { %>
+              <span id="ideal-date">想法日期: <%= date(page.idea_date, 'YYYY-MM-DD') %></span>
+              <span class="border-l-2 border-slate-300 h-4"></span>
+            <% } %>
+            <% if (page.date) { %>
+              <span id="date">发布日期: <%= date(page.date, 'YYYY-MM-DD') %></span>
+            <% } %>
+          </div>
+        <% } %>
+        
+        <!-- 第二行: 类别, 浏览量, 作者 -->
+        <div class="flex items-center gap-2">
+          <% if (page.post_id) { %>
+            <span class="border-l-2 border-blue-300 pl-2"><%= page.post_id %></span>
+            <span class="border-l-2 border-slate-300 h-4"></span>
+          <% } %>
+          <span class="flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <span><%= page.views || 0 %></span>
+          </span>
+          <span class="border-l-2 border-slate-300 h-4"></span>
+          <span id="author" class="underline"><%= config.author || page.author || '1zkn' %></span>
+        </div>
+  
+        <!-- 第三行: 标签 -->
+        <% if (page.tags && page.tags.length) { %>
+          <div class="flex items-center gap-2 text-sm">
+            <span class="text-slate-400">#</span>
+            <% page.tags.forEach(function(tag, index) { %>
+              <a href="<%= url_for(tag.path) %>" class="hover:text-slate-800"><%= tag.name %></a>
+              <% if (index < page.tags.length - 1) { %>
+                <span class="border-l-2 border-slate-300 h-4"></span>
+              <% } %>
+            <% }); %>
+          </div>
+        <% } %>
+      </div>
+    </header>
+  
+    <!-- 文章内容 -->
+    <div id="article-content" class="mt-8 prose prose-slate 
+        prose-blockquote:border-orange-500 
+        prose-blockquote:bg-orange-50 
+        prose-blockquote:text-slate-700 
+        prose-blockquote:not-italic 
+        prose-blockquote:py-2 
+        prose-blockquote:px-4 
+        prose-blockquote:rounded-r
+        max-w-none">
+   <%- page.content %>
+    </div>
+  
+    <!-- 评论区 (如果需要) -->
+    <% if (theme.comments && theme.comments.enable) { %>
+      <div id="comments" class="mt-12">
+        <% if (theme.comments.disqus_shortname) { %>
+          <div id="disqus_thread"></div>
+          <script>
+            var disqus_config = function () {
+              this.page.url = '<%= config.url %>/<%= page.path %>';
+              this.page.identifier = '<%= page.slug || page._id || page.path %>';
+            };
+            (function() {
+              var d = document, s = d.createElement('script');
+              s.src = 'https://<%= theme.comments.disqus_shortname %>.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+        <% } %>
+      </div>
+    <% } %>
+  </article>

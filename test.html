@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="1zkn personal blog - Tech, Notes, Life">
+    <meta name="author" content="1zkn">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1zkn | 技术博客</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.5/cdn.min.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-orange-50 font-[Inconsolata]" x-data="{ mobileMenu: false, leftSidebar: false, rightSidebar: false }">
+    
+
+    <div class="flex min-h-screen">
+        <!-- 左侧边栏 -->
+        
+        <!-- 主内容区 -->
+        
+            <!-- 顶部导航 - 小屏时显示 -->
+            <nav class="bg-white shadow-sm p-4 lg:hidden flex justify-center">
+                <a href="/" class="text-xl font-extrabold text-slate-900 group">
+                    <span class="text-orange-500">~/</span>1zkn<span class="text-orange-500 inline-block animate-pulse">_</span>
+                </a>
+            </nav>
+            
+            <!-- 博客内容 -->
+            <div class="p-4 md:p-8">
+                <header class="mb-8">
+                    <h1 class="text-3xl font-bold text-slate-900 mb-2">$ ls -la ~/posts/</h1>
+                    <p class="text-slate-600">博客文章列表 - 双侧边栏布局演示</p>
+                </header>
+                
+                <!-- 文章列表 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 文章卡片 1 -->
+                    <article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="h-2 bg-blue-500"></div>
+                        <div class="p-5">
+                            <p class="text-sm text-slate-500 mb-2">
+                                <i class="far fa-calendar-alt mr-1"></i>2025-03-30
+                            </p>
+                            <h2 class="text-xl font-semibold mb-3 text-slate-900">
+                                <a href="#" class="hover:text-orange-500 transition-colors">搭建一个支持双侧边栏的 Hexo 博客主题</a>
+                            </h2>
+                            <p class="text-slate-600 text-sm mb-4">
+                                本文详细介绍如何基于 Hexo 框架开发一个支持左右两侧边栏的博客主题，包括响应式布局和移动端适配...
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs font-semibold py-0.5 px-2 rounded bg-blue-500 bg-opacity-10 text-blue-600">
+                                    <i class="fas fa-tag fa-fw mr-1"></i>技术
+                                </span>
+                                <span class="text-xs font-semibold py-0.5 px-2 rounded bg-blue-500 bg-opacity-10 text-blue-600">
+                                    <i class="fas fa-code fa-fw mr-1"></i>编程开发
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- 文章卡片 2 -->
+                    <article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="h-2 bg-purple-500"></div>
+                        <div class="p-5">
+                            <p class="text-sm text-slate-500 mb-2">
+                                <i class="far fa-calendar-alt mr-1"></i>2025-03-28
+                            </p>
+                            <h2 class="text-xl font-semibold mb-3 text-slate-900">
+                                <a href="#" class="hover:text-orange-500 transition-colors">Hexo 多级分类体系设计与实现</a>
+                            </h2>
+                            <p class="text-slate-600 text-sm mb-4">
+                                详细解析 Hexo 的分类系统，如何设计一个多层级的分类结构，以及如何通过 Front-matter 正确配置...
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs font-semibold py-0.5 px-2 rounded bg-purple-500 bg-opacity-10 text-purple-600">
+                                    <i class="fas fa-tag fa-fw mr-1"></i>笔记
+                                </span>
+                                <span class="text-xs font-semibold py-0.5 px-2 rounded bg-purple-500 bg-opacity-10 text-purple-600">
+                                    <i class="fas fa-chalkboard-teacher fa-fw mr-1"></i>教程整理
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- 文章卡片 3 -->
+                    <article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="h-2 bg-green-500"></div>
+                        <div class="p-5">
+                            <p class="text-sm text-slate-500 mb-2">
+                                <i class="far fa-calendar-alt mr-1"></i>2025-03-25
+                            </p>
+                            <h2 class="text-xl font-semibold mb-3 text-slate-900">
+                                <a href="#" class="hover:text-orange-500 transition-colors">从零开始的博客搭建之旅</a>
+                            </h2>
+                            <p class="text-slate-600 text-sm mb-4">
+                                记录我的个人博客从构思、选型到最终上线的全过程，分享过程中的思考和经验教训...
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs font-semibold py-0.5 px-2 rounded bg-green-500 bg-opacity-10 text-green-600">
+                                    <i class="fas fa-tag fa-fw mr-1"></i>生活
+                                </span>
+                                <span class="text-xs font-semibold py-0.5 px-2 rounded bg-green-500 bg-opacity-10 text-green-600">
+                                    <i class="fas fa-seedling fa-fw mr-1"></i>成长历程
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- 文章卡片 4 -->
+                    <article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="h-2 bg-amber-500"></div>
+                        <div class="p-5">
+                            <p class="text-sm text-slate-500 mb-2">
+                                <i class="far fa-calendar-alt mr-1"></i>2025-03-22
+                            </p>
+                            <h2 class="text-xl font-semibold mb-3 text-slate-900">
+                                <a href="#" class="hover:text-orange-500 transition-colors">几款静态博客生成器的对比评测</a>
+                            </h2>
+                            <p class="text-slate-600 text-sm mb-4">
+                                深入对比 Hexo、Hugo、Jekyll、VuePress 等主流静态博客生成器的优缺点，帮助你选择最适合的工具...
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs font-semibold py-0.5 px-2 rounded bg-amber-500 bg-opacity-10 text-amber-600">
+                                    <i class="fas fa-tag fa-fw mr-1"></i>评测
+                                </span>
+                                <span class="text-xs font-semibold py-0.5 px-2 rounded bg-amber-500 bg-opacity-10 text-amber-600">
+                                    <i class="fas fa-tools fa-fw mr-1"></i>工具分享
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- 分页 -->
+                <div class="flex justify-center mt-12">
+                    <div class="flex gap-2">
+                        <a href="#" class="px-4 py-2 bg-white rounded border border-slate-200 text-slate-600 hover:bg-slate-50">
+                            <i class="fas fa-chevron-left mr-1"></i>上一页
+                        </a>
+                        <a href="#" class="px-4 py-2 bg-orange-500 text-white rounded">1</a>
+                        <a href="#" class="px-4 py-2 bg-white rounded border border-slate-200 text-slate-600 hover:bg-slate-50">2</a>
+                        <a href="#" class="px-4 py-2 bg-white rounded border border-slate-200 text-slate-600 hover:bg-slate-50">3</a>
+                        <a href="#" class="px-4 py-2 bg-white rounded border border-slate-200 text-slate-600 hover:bg-slate-50">
+                            <i class="fas fa-chevron-right mr-1"></i>下一页
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                
+            </div>
+        </main>
+        
+        
+</div>
+</body>
+</html>

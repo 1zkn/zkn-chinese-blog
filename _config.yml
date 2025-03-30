@@ -13,7 +13,7 @@ timezone: 'Europe/Rome'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: http://blog.zkn.moe
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -45,15 +45,14 @@ relative_link: false
 future: true
 syntax_highlighter: highlight.js
 highlight:
+  enable: true
   line_number: true
   auto_detect: false
   tab_replace: ''
   wrap: true
-  hljs: false
+  hljs: true
 prismjs:
-  preprocess: true
-  line_number: true
-  tab_replace: ''
+  enable: false
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -96,7 +95,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: ktech
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

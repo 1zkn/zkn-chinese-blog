@@ -1,0 +1,49 @@
+/* 引用块样式 */
+blockquote {
+    border-left: 4px solid #f97316; /* 橙色边框，与主题色调一致 */
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: #4b5563; /* 稍微淡一点的颜色 */
+    font-style: italic;
+    background-color: #fff7ed; /* 轻微的橙色背景 */
+    padding: 1rem;
+    border-radius: 0.375rem;
+  }
+  
+  blockquote p {
+    margin-bottom: 0.5rem;
+  }
+  
+  blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 代码块样式 */
+pre {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+  }
+  
+  pre code {
+    background-color: transparent !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font-size: 0.9rem;
+  }
+  
+  /* 代码块行号 */
+  .gutter {
+    padding-right: 0.5rem;
+    border-right: 1px solid #e2e8f0;
+    opacity: 0.7;
+    user-select: none;
+  }
+  
+  /* 语法高亮定制 */
+  .hljs {
+    background: transparent !important;
+  }

@@ -1,0 +1,59 @@
+<!-- Header -->
+<header class="py-10 text-center">
+    <h1 class="text-3xl font-bold mb-2 text-slate-900"><%= theme.index.header_title %></h1>
+    <p class="text-slate-600"><%= theme.index.header_subtitle %></p>
+  </header>
+  
+  <!-- Categories Links -->
+  <div class="flex flex-wrap justify-center gap-2 mb-8">
+    <a href="<%= url_for('/') %>" class="px-3 py-1 text-sm font-medium rounded-full border border-slate-300 text-slate-700 hover:border-slate-400 transition-colors <%= is_home() && !is_category() ? 'bg-slate-800 text-white border-slate-800' : '' %>">
+      全部
+    </a>
+    <% site.categories.map(function(category){ %>
+      <a href="<%= url_for(category.path) %>" class="px-3 py-1 text-sm font-medium rounded-full border border-<%= theme.category_colors[category.name] || 'gray' %>-200 text-<%= theme.category_colors[category.name] || 'gray' %>-600 hover:border-<%= theme.category_colors[category.name] || 'gray' %>-300 transition-colors <%= is_category(category.name) ? 'bg-' + (theme.category_colors[category.name] || 'gray') + '-500 text-white border-' + (theme.category_colors[category.name] || 'gray') + '-500' : '' %>">
+        <%= category.name %>
+      </a>
+    <% }) %>
+  </div>
+  
+  <!-- Posts Grid -->
+  <div class="grid grid-cols-1 gap-6 mb-12">
+    <% page.posts.each(function(post){ %>
+      <article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+        <% if (post.categories && post.categories.length > 0) { %>
+          <div class="h-2 bg-<%= theme.category_colors[post.categories.data[0].name] || 'gray' %>-500"></div>
+        <% } else { %>
+          <div class="h-2 bg-gray-500"></div>
+        <% } %>
+        <div class="p-5">
+          <p class="text-sm text-slate-500 mb-2"><%= date(post.date, 'D MMM. YYYY') %></p>
+          <h2 class="text-xl font-semibold mb-3 text-slate-900">
+            <a href="<%= url_for(post.path) %>" class="hover:text-orange-500 transition-colors"><%= post.title %></a>
+          </h2>
+          <p class="text-slate-600 text-sm mb-4">
+            <%= post.excerpt || post.description || strip_html(post.content).substring(0, 150) + '...' %>
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <% post.categories.data.forEach(function(category){ %>
+              <span class="text-xs font-semibold py-0.5 px-2 rounded bg-<%= theme.category_colors[category.name] || 'gray' %>-500 bg-opacity-10 text-<%= theme.category_colors[category.name] || 'gray' %>-600"><%= category.name %></span>
+            <% }) %>
+            <% post.tags.data.forEach(function(tag){ %>
+              <span class="text-xs font-semibold py-0.5 px-2 rounded bg-gray-200 text-gray-600"><%= tag.name %></span>
+            <% }) %>
+          </div>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+  
+  <!-- Pagination -->
+  <% if (page.total > 1) { %>
+    <div class="flex justify-center my-8">
+      <% if (page.prev) { %>
+        <a href="<%= url_for(page.prev_link) %>" class="mx-1 px-3 py-1 rounded bg-slate-200 text-slate-600 hover:bg-orange-500 hover:text-white transition-colors">上一页</a>
+      <% } %>
+      <% if (page.next) { %>
+        <a href="<%= url_for(page.next_link) %>" class="mx-1 px-3 py-1 rounded bg-slate-200 text-slate-600 hover:bg-orange-500 hover:text-white transition-colors">下一页</a>
+      <% } %>
+    </div>
+  <% } %>

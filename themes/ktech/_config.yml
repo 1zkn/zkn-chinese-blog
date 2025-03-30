@@ -1,0 +1,20 @@
+menu:
+  Home: /
+  about: https://zkn.moe
+  friends_link: https://zkn.moe/friends
+
+social:
+  github: https://github.com/1zkn
+  twitter: https://x.com/zknmoe
+  email: mailto:kevin@zkn.app
+
+index:
+  header_title: "$ ls -la ~/posts/"
+  header_subtitle: "hhh"
+
+
+category_colors:
+  技术: "blue"
+  生活: "emerald"
+  笔记: "purple"
+  评测: "amber"
