@@ -1,0 +1,295 @@
+<%- partial('_partial/head') %>
+
+<div class="container mx-auto px-4 py-8">
+  <!-- Header -->
+  <header class="py-10 text-center">
+    <h1 class="text-3xl font-bold mb-2 text-slate-900">搜索页面</h1>
+    <p class="text-slate-600">查找您感兴趣的文章</p>
+  </header>
+
+  <!-- Search Form -->
+  <div class="max-w-2xl mx-auto mb-12">
+    <div class="relative">
+      <input id="search-input" type="text" placeholder="输入关键词搜索..." class="w-full px-4 py-3 text-slate-900 border border-slate-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+      <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-orange-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search Status -->
+  <div id="search-status" class="text-center mb-8 hidden">
+    <span class="inline-block px-4 py-2 bg-slate-100 text-slate-700 rounded-full">
+      搜索中...
+    </span>
+  </div>
+
+  <!-- Search Results -->
+  <div id="search-results" class="grid grid-cols-1 gap-6 mb-12">
+    <!-- Results will be rendered here -->
+  </div>
+
+  <!-- No Results Message -->
+  <div id="no-results" class="text-center py-12 hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <h3 class="text-xl font-semibold text-slate-700 mb-2">没有找到匹配的结果</h3>
+    <p class="text-slate-500">请尝试使用不同的关键词搜索</p>
+  </div>
+</div>
+
+<!-- Pass category colors to JavaScript -->
+<script>
+// Create global object for category colors
+window.categoryColors = {
+  <% for(let category in theme.category_colors) { %>
+    '<%= category %>': '<%= theme.category_colors[category] %>',
+  <% } %>
+};
+</script>
+
+<!-- Pass category colors to JavaScript -->
+<script>
+// Create global object for category colors
+window.categoryColors = {
+  <% for(let category in theme.category_colors) { %>
+    '<%= category %>': '<%= theme.category_colors[category] %>',
+  <% } %>
+};
+</script>
+
+<!-- Search Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('search-input');
+  const searchButton = document.getElementById('search-button');
+  const searchResults = document.getElementById('search-results');
+  const searchStatus = document.getElementById('search-status');
+  const noResults = document.getElementById('no-results');
+  
+  let searchData;
+  let isSearching = false;
+  
+  // Focus search input on page load
+  searchInput.focus();
+  
+  // Extract query parameters if any
+  const urlParams = new URLSearchParams(window.location.search);
+  const queryParam = urlParams.get('q');
+  
+  // If query parameter exists, fill the search input and trigger search
+  if (queryParam) {
+    searchInput.value = queryParam;
+    performSearch();
+  }
+  
+  // Fetch search index
+  fetch('/search.xml')
+    .then(response => response.text())
+    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(data => {
+      searchData = data;
+      // If there's a query parameter, search again to ensure data is loaded
+      if (queryParam) {
+        performSearch();
+      }
+    })
+    .catch(error => {
+      console.error('Error loading search index:', error);
+      searchStatus.innerHTML = '<span class="inline-block px-4 py-2 bg-red-100 text-red-700 rounded-full">加载搜索索引时出错</span>';
+      searchStatus.classList.remove('hidden');
+    });
+  
+  function performSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    
+    // Update URL with search query
+    const newUrl = window.location.pathname + (query ? '?q=' + encodeURIComponent(query) : '');
+    window.history.pushState({ query }, '', newUrl);
+    
+    if (query.length < 1) {
+      searchResults.innerHTML = '';
+      noResults.classList.add('hidden');
+      return;
+    }
+    
+    // Show searching status
+    searchStatus.classList.remove('hidden');
+    noResults.classList.add('hidden');
+    searchResults.innerHTML = '';
+    isSearching = true;
+    
+    // If search data isn't loaded yet, return
+    if (!searchData) {
+      return;
+    }
+    
+    const entries = searchData.getElementsByTagName('entry');
+    let results = [];
+    
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      const title = entry.getElementsByTagName('title')[0].textContent;
+      const url = entry.getElementsByTagName('url')[0].textContent;
+      const content = entry.getElementsByTagName('content')[0].textContent;
+      const categories = Array.from(entry.getElementsByTagName('category')).map(cat => cat.textContent);
+      const tags = Array.from(entry.getElementsByTagName('tag')).map(tag => tag.textContent);
+      let date = '';
+      const dateElement = entry.getElementsByTagName('date')[0];
+      if (dateElement) {
+        date = dateElement.textContent;
+      }
+      
+      if (title.toLowerCase().includes(query) || content.toLowerCase().includes(query) || 
+          categories.some(cat => cat.toLowerCase().includes(query)) || 
+          tags.some(tag => tag.toLowerCase().includes(query))) {
+        
+        results.push({ title, url, content, categories, tags, date });
+      }
+    }
+    
+    // Hide searching status
+    searchStatus.classList.add('hidden');
+    isSearching = false;
+    
+    renderResults(results);
+  }
+  
+  function renderResults(results) {
+    searchResults.innerHTML = '';
+    
+    if (results.length === 0) {
+      noResults.classList.remove('hidden');
+      return;
+    }
+    
+    noResults.classList.add('hidden');
+    
+    results.forEach(result => {
+      // Format date if available
+      let formattedDate = '';
+      if (result.date) {
+        const date = new Date(result.date);
+        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        formattedDate = date.toLocaleDateString('zh-CN', options);
+      }
+      
+      // Create excerpt from content
+      const excerpt = result.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...';
+      
+      // Create article element
+      const article = document.createElement('article');
+      article.className = 'bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300';
+      
+      // Create colored header bar - using the first category's color if available
+      const headerBar = document.createElement('div');
+      let barColor = 'gray';
+      if (result.categories && result.categories.length > 0) {
+        const firstCategory = result.categories[0];
+        if (window.categoryColors && window.categoryColors[firstCategory]) {
+          barColor = window.categoryColors[firstCategory];
+        }
+      }
+      headerBar.className = `h-2 bg-${barColor}-500`;
+      
+      // Create content container
+      const content = document.createElement('div');
+      content.className = 'p-5';
+      
+      // Add date
+      if (formattedDate) {
+        const dateElement = document.createElement('p');
+        dateElement.className = 'text-sm text-slate-500 mb-2';
+        dateElement.textContent = formattedDate;
+        content.appendChild(dateElement);
+      }
+      
+      // Add title
+      const titleElement = document.createElement('h2');
+      titleElement.className = 'text-xl font-semibold mb-3 text-slate-900';
+      const titleLink = document.createElement('a');
+      titleLink.href = result.url;
+      titleLink.className = 'hover:text-orange-500 transition-colors';
+      titleLink.textContent = result.title;
+      titleElement.appendChild(titleLink);
+      content.appendChild(titleElement);
+      
+      // Add excerpt
+      const excerptElement = document.createElement('p');
+      excerptElement.className = 'text-slate-600 text-sm mb-4';
+      excerptElement.textContent = excerpt;
+      content.appendChild(excerptElement);
+      
+      // Add categories and tags
+      const tagsContainer = document.createElement('div');
+      tagsContainer.className = 'flex flex-wrap gap-2';
+      
+      // Add categories
+      result.categories.forEach(category => {
+        const categoryElement = document.createElement('span');
+        // Use the category color if available, otherwise default to gray
+        const categoryColor = window.categoryColors && window.categoryColors[category] ? window.categoryColors[category] : 'gray';
+        categoryElement.className = `text-xs font-semibold py-0.5 px-2 rounded bg-${categoryColor}-500 bg-opacity-10 text-${categoryColor}-600`;
+        categoryElement.textContent = category;
+        tagsContainer.appendChild(categoryElement);
+      });
+      
+      // Add tags
+      result.tags.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'text-xs font-semibold py-0.5 px-2 rounded bg-gray-200 text-gray-600';
+        tagElement.textContent = tag;
+        tagsContainer.appendChild(tagElement);
+      });
+      
+      content.appendChild(tagsContainer);
+      
+      // Assemble the article
+      article.appendChild(headerBar);
+      article.appendChild(content);
+      
+      // Add to results
+      searchResults.appendChild(article);
+    });
+    
+    // Highlight the matched text (optional)
+    highlightMatches(searchInput.value.trim().toLowerCase());
+  }
+  
+  // Optional: Highlight the matched text
+  function highlightMatches(query) {
+    if (!query || query.length < 1) return;
+    
+    const articles = searchResults.querySelectorAll('article');
+    
+    articles.forEach(article => {
+      const titleElement = article.querySelector('h2 a');
+      const excerptElement = article.querySelector('p.text-slate-600');
+      
+      if (titleElement) {
+        const originalTitle = titleElement.textContent;
+        const newTitle = originalTitle.replace(new RegExp(query, 'gi'), match => `<mark class="bg-yellow-200">${match}</mark>`);
+        titleElement.innerHTML = newTitle;
+      }
+      
+      if (excerptElement) {
+        const originalExcerpt = excerptElement.textContent;
+        const newExcerpt = originalExcerpt.replace(new RegExp(query, 'gi'), match => `<mark class="bg-yellow-200">${match}</mark>`);
+        excerptElement.innerHTML = newExcerpt;
+      }
+    });
+  }
+  
+  // Event listeners
+  searchButton.addEventListener('click', performSearch);
+  
+  searchInput.addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+      performSearch();
+    }
+  });
+});
+</script>

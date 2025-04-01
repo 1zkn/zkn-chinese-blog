@@ -1,14 +1,12 @@
-<!-- 右侧边栏 -->
 <aside
-    class="w-64 bg-white shadow-md fixed top-0 right-0 h-full z-40 transition-transform duration-300 transform lg:translate-x-0 overflow-y-auto"
+    class="w-64 bg-white rounded-lg shadow-md border border-slate-200 lg:sticky lg:top-4 h-auto transition-transform duration-300 transform lg:translate-x-0 fixed top-0 right-0 h-screen z-40 overflow-y-auto"
     :class="rightSidebar ? 'translate-x-0' : 'translate-x-full'">
 
     <!-- 博主信息 -->
     <div class="p-6 border-b border-slate-100">
         <div class="flex flex-col items-center">
             <div
-                class="w-24 h-24 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 text-3xl font-bold mb-4">
-                1zkn
+                class="bg-[url(https://zkn.moe/profile.jpeg)] bg-cover w-24 h-24 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 text-3xl font-bold mb-4">
             </div>
             <h3 class="font-semibold text-slate-800">1zkn</h3>
             <p class="text-sm text-slate-500 mt-1">技术爱好者</p>
@@ -46,37 +44,8 @@
         </form>
     </div>
     <!-- 标签云 -->
-    <div class="p-4 border-t border-slate-100">
-        <h3 class="font-semibold text-sm uppercase text-slate-400 mb-4">
-            <i class="fas fa-tags mr-2 text-orange-400"></i>标签云
-        </h3>
-        <div class="flex flex-wrap gap-2">
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">Hexo</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">博客</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">前端</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">JavaScript</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">CSS</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">Linux</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">服务器</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">Nginx</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">静态站点</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">Python</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">Docker</a>
-            <a href="#"
-                class="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded hover:bg-orange-100 hover:text-orange-600">教程</a>
-        </div>
-    </div>
+    
+    <%- partial('_partial/tag-cloud') %>
 
     <div class="p-4 border-t border-slate-100">
         <h3 class="font-semibold text-sm uppercase text-slate-400 mb-4">

@@ -1,6 +1,30 @@
-<!-- Navbar -->
-<nav class="p-4 lg:hidden flex justify-center">
-    <a href="<%= url_for('/') %>" class="text-xl font-extrabold text-slate-900 group">
-        <span><%= config.title %></span>
-    </a>
-</nav>
+<header class="bg-white rounded-lg shadow-md border border-slate-200 p-4 mb-6">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+        <!-- Logo e titolo del sito -->
+        <div class="mb-4 md:mb-0">
+            <a href="/" class="inline-flex items-center">
+                <span class="text-xl md:text-2xl font-extrabold text-slate-900">
+                    <span class="text-orange-500"><%= config.title %></span>
+                </span>
+            </a>
+        </div>
+        
+        <!-- Navigazione principale -->
+        <nav class="flex flex-wrap justify-center gap-3">
+            <a href="/" class="px-3 py-2 text-sm rounded-md text-slate-600 hover:text-orange-500 hover:bg-orange-50">
+                <i class="fas fa-home mr-1"></i> 首页
+            </a>
+            <!--
+            <a href="/archives/" class="px-3 py-2 text-sm rounded-md text-slate-600 hover:text-orange-500 hover:bg-orange-50">
+                <i class="fas fa-archive mr-1"></i> 归档
+            </a>
+            <a href="/categories/" class="px-3 py-2 text-sm rounded-md text-slate-600 hover:text-orange-500 hover:bg-orange-50">
+                <i class="fas fa-folder mr-1"></i> 分类
+            </a>
+            <a href="/tags/" class="px-3 py-2 text-sm rounded-md text-slate-600 hover:text-orange-500 hover:bg-orange-50">
+                <i class="fas fa-tags mr-1"></i> 标签
+            </a>
+            -->
+        </nav>
+    </div>
+</header>

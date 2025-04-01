@@ -16,5 +16,26 @@ index:
 category_colors:
   技术: "blue"
   生活: "emerald"
+  成长历程: "emerald"
   笔记: "purple"
   评测: "amber"
+
+# Tag Cloud Configuration
+tag_cloud:
+  enabled: true
+  title: '标签云'
+  hover_bg: 'orange-100'
+  hover_text: 'orange-600'
+  tags:
+    - name: 'Hexo'
+    - name: '博客'
+    - name: '前端'
+    - name: 'JavaScript'
+    - name: 'CSS'
+    - name: 'Linux'
+    - name: '服务器'
+    - name: 'Nginx'
+    - name: '静态站点'
+    - name: '草神厨'
+    - name: 'AI'
+    - name: '教程'

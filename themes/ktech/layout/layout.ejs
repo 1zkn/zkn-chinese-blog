@@ -2,56 +2,74 @@
 <html>
 <%- include('_partial/head') %>
 
-    <body class="bg-orange-50 font-[Inconsolata]"
-        x-data="{ mobileMenu: false, leftSidebar: false, rightSidebar: false }">
-        <div class="flex min-h-screen">
-            <div class="fixed top-4 right-4 z-50 flex gap-2 lg:hidden">
-                <button @click="leftSidebar = !leftSidebar" class="bg-orange-500 text-white p-2 rounded-md shadow-md">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <button @click="rightSidebar = !rightSidebar" class="bg-blue-500 text-white p-2 rounded-md shadow-md">
-                    <i class="fas fa-info-circle"></i>
-                </button>
+<body class="bg-orange-50 font-[Inconsolata]" x-data="{ mobileMenu: false, leftSidebar: false, rightSidebar: false }">
+    <div class="fixed top-4 right-4 z-50 flex gap-2 lg:hidden">
+        <button @click="leftSidebar = !leftSidebar" class="bg-orange-500 text-white p-2 rounded-md shadow-md">
+            <i class="fas fa-bars"></i>
+        </button>
+        <button @click="rightSidebar = !rightSidebar" class="bg-blue-500 text-white p-2 rounded-md shadow-md">
+            <i class="fas fa-info-circle"></i>
+        </button>
+    </div>
+    
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Sidebar sinistra visibile solo su lg e superiori -->
+            <div class="hidden lg:block lg:w-64 flex-shrink-0">
+                <%- include('_partial/sidebar-left') %>
             </div>
-            <%- include('_partial/sidebar-left') %>
-                <div class="max-w-6xl mx-auto px-4">
-                    <main class="flex-1 lg:ml-64 lg:mr-64 transition-all duration-300">
-                        <%- include('_partial/header') %>
-                            <div class="content">
-                                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 rounded shadow-sm" role="alert">
-                                    <div class="flex">
-                                      <div class="flex-shrink-0">
-                                        <i class="fas fa-tools text-amber-500"></i>
-                                      </div>
-                                      <div class="ml-3">
-                                        <p class="text-sm text-amber-700 font-medium">
-                                          网站建设中 | 本博客仍在开发中
-                                        </p>
-                                        <p class="mt-1 text-xs text-amber-600">
-                                          目前部分功能可能无法正常使用，感谢您的理解与支持。
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                <%- body %>
+            
+            <!-- Contenuto principale -->
+            <main class="flex-grow min-w-0">
+                <%- include('_partial/header') %>
+                <div class="content">
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 rounded shadow-sm" role="alert">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-tools text-amber-500"></i>
                             </div>
-                        
+                            <div class="ml-3">
+                                <p class="text-sm text-amber-700 font-medium">
+                                    网站建设中 | 本博客仍在开发中
+                                </p>
+                                <p class="mt-1 text-xs text-amber-600">
+                                    目前部分功能可能无法正常使用，感谢您的理解与支持。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <%- body %>
                 </div>
+            </main>
+            
+            <!-- Sidebar destra visibile solo su lg e superiori -->
+            <div class="hidden lg:block lg:w-64 flex-shrink-0">
+                <%- include('_partial/sidebar-right') %>
+            </div>
         </div>
-        </main>
-        
+    </div>
+    
+    <!-- Sidebar sinistra mobile (fixed) -->
+    <div class="lg:hidden">
+        <%- include('_partial/sidebar-left') %>
+    </div>
+    
+    <!-- Sidebar destra mobile (fixed) -->
+    <div class="lg:hidden">
         <%- include('_partial/sidebar-right') %>
-        <%- include('_partial/footer') %>
-    </body>
+    </div>
+    
+    <%- include('_partial/footer') %>
+    
     <% if (is_post() && config.highlight.enable) { %>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('pre code').forEach(block => {
-                    hljs.highlightBlock(block);
-                });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('pre code').forEach(block => {
+                hljs.highlightBlock(block);
             });
-        </script>
-        <% } %>
-
+        });
+    </script>
+    <% } %>
+</body>
 </html>

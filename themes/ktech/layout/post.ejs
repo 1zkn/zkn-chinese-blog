@@ -1,54 +1,31 @@
-<article class="font-inconsolata mx-auto md:max-w-3xl">
+<!-- Container per l'intero articolo -->
+<div class="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-sm border border-slate-200 mb-12 overflow-hidden">
+  <!-- Barra colorata in alto (opzionale) -->
+  <% if (page.categories && page.categories.length > 0) { %>
+    <div class="h-2 bg-<%= theme.category_colors[page.categories.data[0].name] || 'gray' %>-500"></div>
+  <% } else { %>
+    <div class="h-2 bg-gray-500"></div>
+  <% } %>
+  
+  <!-- Contenuto dell'articolo con padding ottimizzato per mobile -->
+  <article class="font-inconsolata p-3 md:p-8">
     <header>
-      <h1 class="text-2xl font-semibold text-slate-900"><%= page.title %></h1>
-      <div class="article-meta space-y-2 text-slate-600">
-        <!-- 第一行: 日期 -->
-        <% if (page.date || page.idea_date) { %>
-          <div class="flex items-center gap-2">
-            <% if (page.idea_date) { %>
-              <span id="ideal-date">想法日期: <%= date(page.idea_date, 'YYYY-MM-DD') %></span>
-              <span class="border-l-2 border-slate-300 h-4"></span>
-            <% } %>
-            <% if (page.date) { %>
-              <span id="date">发布日期: <%= date(page.date, 'YYYY-MM-DD') %></span>
-            <% } %>
-          </div>
-        <% } %>
-        
-        <!-- 第二行: 类别, 浏览量, 作者 -->
+      <h1 class="text-2xl font-semibold text-slate-900 break-words overflow-wrap-anywhere"><%= page.title %></h1>
+      <% if (page.date || page.idea_date) { %>
         <div class="flex items-center gap-2">
-          <% if (page.post_id) { %>
-            <span class="border-l-2 border-blue-300 pl-2"><%= page.post_id %></span>
+          <% if (page.idea_date) { %>
+            <span id="ideal-date">想法日期: <%= date(page.idea_date, 'YYYY-MM-DD') %></span>
             <span class="border-l-2 border-slate-300 h-4"></span>
           <% } %>
-          <span class="flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400">
-              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-            <span><%= page.views || 0 %></span>
-          </span>
-          <span class="border-l-2 border-slate-300 h-4"></span>
-          <span id="author" class="underline"><%= config.author || page.author || '1zkn' %></span>
+          <% if (page.date) { %>
+            <span id="date">发布日期: <%= date(page.date, 'YYYY-MM-DD') %></span>
+          <% } %>
         </div>
-  
-        <!-- 第三行: 标签 -->
-        <% if (page.tags && page.tags.length) { %>
-          <div class="flex items-center gap-2 text-sm">
-            <span class="text-slate-400">#</span>
-            <% page.tags.forEach(function(tag, index) { %>
-              <a href="<%= url_for(tag.path) %>" class="hover:text-slate-800"><%= tag.name %></a>
-              <% if (index < page.tags.length - 1) { %>
-                <span class="border-l-2 border-slate-300 h-4"></span>
-              <% } %>
-            <% }); %>
-          </div>
-        <% } %>
-      </div>
+      <% } %>
     </header>
   
-    <!-- 文章内容 -->
-    <div id="article-content" class="mt-8 prose prose-slate 
+    <!-- 文章内容 con gestione ottimizzata dell'overflow -->
+    <div id="article-content" class="mt-8 prose prose-slate
         prose-blockquote:border-orange-500 
         prose-blockquote:bg-orange-50 
         prose-blockquote:text-slate-700 
@@ -56,28 +33,10 @@
         prose-blockquote:py-2 
         prose-blockquote:px-4 
         prose-blockquote:rounded-r
-        max-w-none">
-   <%- page.content %>
-    </div>
-  
-    <!-- 评论区 (如果需要) -->
-    <% if (theme.comments && theme.comments.enable) { %>
-      <div id="comments" class="mt-12">
-        <% if (theme.comments.disqus_shortname) { %>
-          <div id="disqus_thread"></div>
-          <script>
-            var disqus_config = function () {
-              this.page.url = '<%= config.url %>/<%= page.path %>';
-              this.page.identifier = '<%= page.slug || page._id || page.path %>';
-            };
-            (function() {
-              var d = document, s = d.createElement('script');
-              s.src = 'https://<%= theme.comments.disqus_shortname %>.disqus.com/embed.js';
-              s.setAttribute('data-timestamp', +new Date());
-              (d.head || d.body).appendChild(s);
-            })();
-          </script>
-        <% } %>
+        max-w-none break-words overflow-wrap-anywhere">
+      <div class="[&_img]:max-w-full [&_img]:h-auto [&_pre]:overflow-x-auto [&_pre]:max-w-full [&_table]:overflow-x-auto [&_table]:block [&_table]:max-w-full sm:[&_table]:inline-table [&_table]:whitespace-nowrap sm:[&_table]:whitespace-normal [&_p]:break-words [&_p]:overflow-wrap-anywhere [&_h2]:break-words [&_h2]:overflow-wrap-anywhere [&_h3]:break-words [&_h3]:overflow-wrap-anywhere [&_a]:break-words [&_a]:overflow-wrap-anywhere [&_code]:whitespace-pre-wrap [&_code]:break-words">
+        <%- page.content %>
       </div>
-    <% } %>
+    </div>
   </article>
+</div>

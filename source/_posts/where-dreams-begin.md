@@ -4,10 +4,24 @@ date: 2025-03-30 10:50:28
 idea_date: 2023-02-20 
 tags:
 categories: 
-- 生活
+- [ 生活, 成长历程 ]
 ---
 
-> 此文章使用了AI来翻译，原文发表在 https://1zkn.com/post/1
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded shadow-sm" role="alert">
+  <div class="flex">
+    <div class="flex-shrink-0">
+      <i class="fas fa-language text-blue-500"></i>
+    </div>
+    <div class="ml-3">
+      <p class="text-sm text-blue-700 font-medium">
+        此文章使用了AI来翻译
+      </p>
+      <p class="mt-1 text-xs text-blue-600">
+        原文发表在 <a href="https://1zkn.com/post/1" target="_blank" class="text-blue-600 hover:underline">https://1zkn.com/post/1</a>
+      </p>
+    </div>
+  </div>
+</div>
 
 
 ## 自由落体进入编程世界
