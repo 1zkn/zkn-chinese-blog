@@ -10,15 +10,98 @@ social:
 
 index:
   header_title: "$ ls -la ~/posts/"
-  header_subtitle: "hhh"
+  header_subtitle: ""
 
 
 category_colors:
   技术: "blue"
+  编程开发: "blue"
   生活: "emerald"
   成长历程: "emerald"
   笔记: "purple"
   评测: "amber"
+
+sidebar:
+  categories:
+    技术:
+      icon: blue
+      subcategories:
+        - name: 编程开发
+          icon: fas fa-code
+          color: blue
+          link: /categories/技术/编程开发/
+#        - name: 系统运维
+#          icon: fas fa-server
+#          color: blue
+#          link: /categories/operations/
+#        - name: 网络安全
+#          icon: fas fa-shield-alt
+#          color: blue
+#          link: /categories/security/
+#        - name: 物联网
+#          icon: fas fa-microchip
+#          color: blue
+#          link: /categories/iot/
+#        - name: 自建服务
+#          icon: fas fa-cloud
+#          color: blue
+#          link: /categories/self-hosting/
+    笔记:
+      icon: purple
+      subcategories:
+        - name: 学习笔记
+          icon: fas fa-book
+          color: purple
+          link: /categories/study-notes/
+#        - name: 读书笔记
+#          icon: fas fa-bookmark
+#          color: purple
+#          link: /categories/reading-notes/
+#        - name: 教程整理
+#          icon: fas fa-chalkboard-teacher
+#          color: purple
+#          link: /categories/tutorials/
+#        - name: 问题解决
+#          icon: fas fa-question-circle
+#          color: purple
+#          link: /categories/troubleshooting/
+    生活:
+      icon: green
+      subcategories:
+        - name: 成长历程
+          icon: fas fa-seedling
+          color: green
+          link: /categories/生活/成长历程/
+#    评测:
+#      icon: amber
+#      subcategories:
+#        - name: 硬件评测
+#          icon: fas fa-laptop
+#          color: amber
+#          link: /categories/hardware-reviews/
+#        - name: 服务体验
+#          icon: fas fa-cloud
+#          color: amber
+#          link: /categories/service-reviews/
+#        - name: 工具分享
+#          icon: fas fa-tools
+#          color: amber
+#          link: /categories/tools/
+
+  # Pagine di navigazione
+  navigation:
+    - name: 首页
+      icon: fas fa-home
+      color: orange
+      link: /
+    - name: 关于我
+      icon: fas fa-user
+      color: orange
+      link: /about/
+    - name: 友链
+      icon: fas fa-project-diagram
+      color: orange
+      link: /friends/
 
 # Tag Cloud Configuration
 tag_cloud:
@@ -39,3 +122,6 @@ tag_cloud:
     - name: '草神厨'
     - name: 'AI'
     - name: '教程'
+
+
+disqus_shortname: 1zkn-com

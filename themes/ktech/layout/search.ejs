@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const categoryElement = document.createElement('span');
         // Use the category color if available, otherwise default to gray
         const categoryColor = window.categoryColors && window.categoryColors[category] ? window.categoryColors[category] : 'gray';
-        categoryElement.className = `text-xs font-semibold py-0.5 px-2 rounded bg-${categoryColor}-500 bg-opacity-10 text-${categoryColor}-600`;
+        categoryElement.className = `text-xs font-semibold py-0.5 px-2 rounded bg-${categoryColor}-500/10 text-${categoryColor}-600`;
         categoryElement.textContent = category;
         tagsContainer.appendChild(categoryElement);
       });
@@ -247,15 +247,15 @@ document.addEventListener('DOMContentLoaded', function() {
       
       content.appendChild(tagsContainer);
       
-      // Assemble the article
+      
       article.appendChild(headerBar);
       article.appendChild(content);
       
-      // Add to results
+   
       searchResults.appendChild(article);
     });
     
-    // Highlight the matched text (optional)
+    
     highlightMatches(searchInput.value.trim().toLowerCase());
   }
   

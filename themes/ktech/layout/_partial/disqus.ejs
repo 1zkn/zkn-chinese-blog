@@ -1,0 +1,19 @@
+<% if (page.comments !== false && theme.disqus_shortname){ %>
+    <div class="mt-8 p-6 bg-white rounded-lg shadow-md border border-slate-200">
+      <div id="disqus_thread"></div>
+      <script>
+        var disqus_config = function () {
+          this.page.url = '<%= page.permalink %>'; // URL canonico della pagina
+          this.page.identifier = '<%= page.path %>'; // Identificatore unico della pagina
+        };
+        
+        (function() { // NON MODIFICARE SOTTO QUESTA RIGA
+          var d = document, s = d.createElement('script');
+          s.src = 'https://<%= theme.disqus_shortname || "1zkn-com" %>.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    <% } %>

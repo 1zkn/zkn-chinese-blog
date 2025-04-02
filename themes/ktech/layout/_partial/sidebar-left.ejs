@@ -7,131 +7,48 @@
             <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-500 mr-3">
                 <i class="fas fa-code text-lg"></i>
             </div>
-            <span class="text-xl font-bold text-slate-700">博客导航</span>
+            <span class="text-xl font-bold text-slate-700"><%= theme.sidebar.title || '博客导航' %></span>
         </div>
-        <p class="text-sm text-slate-500 mt-1">just another niubbo</p>
+        <p class="text-sm text-slate-500 mt-1"><%= theme.sidebar.subtitle || 'just another niubbo' %></p>
     </div>
 
     <nav class="p-4">
         <h3 class="font-semibold text-sm uppercase text-slate-400 mb-4">分类导航</h3>
 
-        
-        <div class="mb-4" x-data="{ open: false }">
-            <button @click="open = !open"
-                class="flex items-center justify-between w-full text-left p-2 rounded hover:bg-slate-50">
-                <span class="flex items-center">
-                    <span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span>
-                    <span class="font-medium text-slate-700">技术</span>
-                </span>
-                <i class="fas fa-chevron-down text-slate-400 text-xs transition-transform"
-                    :class="open ? 'rotate-180' : ''"></i>
-            </button>
-            <div x-show="open" class="pl-4 mt-1 space-y-1" x-transition>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-blue-500 hover:bg-blue-50 rounded">
-                    <i class="fas fa-code fa-fw mr-2 text-blue-400"></i>编程开发
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-blue-500 hover:bg-blue-50 rounded">
-                    <i class="fas fa-server fa-fw mr-2 text-blue-400"></i>系统运维
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-blue-500 hover:bg-blue-50 rounded">
-                    <i class="fas fa-shield-alt fa-fw mr-2 text-blue-400"></i>网络安全
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-blue-500 hover:bg-blue-50 rounded">
-                    <i class="fas fa-microchip fa-fw mr-2 text-blue-400"></i>物联网
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-blue-500 hover:bg-blue-50 rounded">
-                    <i class="fas fa-cloud fa-fw mr-2 text-blue-400"></i>自建服务
-                </a>
-            </div>
-        </div>
-
-        
-        <div class="mb-4" x-data="{ open: false }">
-            <button @click="open = !open"
-                class="flex items-center justify-between w-full text-left p-2 rounded hover:bg-slate-50">
-                <span class="flex items-center">
-                    <span class="w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
-                    <span class="font-medium text-slate-700">笔记</span>
-                </span>
-                <i class="fas fa-chevron-down text-slate-400 text-xs transition-transform"
-                    :class="open ? 'rotate-180' : ''"></i>
-            </button>
-            <div x-show="open" class="pl-4 mt-1 space-y-1" x-transition>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-purple-500 hover:bg-purple-50 rounded">
-                    <i class="fas fa-book fa-fw mr-2 text-purple-400"></i>学习笔记
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-purple-500 hover:bg-purple-50 rounded">
-                    <i class="fas fa-bookmark fa-fw mr-2 text-purple-400"></i>读书笔记
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-purple-500 hover:bg-purple-50 rounded">
-                    <i class="fas fa-chalkboard-teacher fa-fw mr-2 text-purple-400"></i>教程整理
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-purple-500 hover:bg-purple-50 rounded">
-                    <i class="fas fa-question-circle fa-fw mr-2 text-purple-400"></i>问题解决
-                </a>
-            </div>
-        </div>
-
-        
-        <div class="mb-4" x-data="{ open: false }">
-            <button @click="open = !open"
-                class="flex items-center justify-between w-full text-left p-2 rounded hover:bg-slate-50">
-                <span class="flex items-center">
-                    <span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
-                    <span class="font-medium text-slate-700">生活</span>
-                </span>
-                <i class="fas fa-chevron-down text-slate-400 text-xs transition-transform"
-                    :class="open ? 'rotate-180' : ''"></i>
-            </button>
-            <div x-show="open" class="pl-4 mt-1 space-y-1" x-transition>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-green-500 hover:bg-green-50 rounded">
-                    <i class="fas fa-pen fa-fw mr-2 text-green-400"></i>日常随笔
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-green-500 hover:bg-green-50 rounded">
-                    <i class="fas fa-gamepad fa-fw mr-2 text-green-400"></i>游戏娱乐
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-green-500 hover:bg-green-50 rounded">
-                    <i class="fas fa-seedling fa-fw mr-2 text-green-400"></i>成长历程
-                </a>
-            </div>
-        </div>
-
-        
-        <div class="mb-4" x-data="{ open: false }">
-            <button @click="open = !open"
-                class="flex items-center justify-between w-full text-left p-2 rounded hover:bg-slate-50">
-                <span class="flex items-center">
-                    <span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
-                    <span class="font-medium text-slate-700">评测</span>
-                </span>
-                <i class="fas fa-chevron-down text-slate-400 text-xs transition-transform"
-                    :class="open ? 'rotate-180' : ''"></i>
-            </button>
-            <div x-show="open" class="pl-4 mt-1 space-y-1" x-transition>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-amber-500 hover:bg-amber-50 rounded">
-                    <i class="fas fa-laptop fa-fw mr-2 text-amber-400"></i>硬件评测
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-amber-500 hover:bg-amber-50 rounded">
-                    <i class="fas fa-cloud fa-fw mr-2 text-amber-400"></i>服务体验
-                </a>
-                <a href="#" class="block p-2 text-sm text-slate-600 hover:text-amber-500 hover:bg-amber-50 rounded">
-                    <i class="fas fa-tools fa-fw mr-2 text-amber-400"></i>工具分享
-                </a>
-            </div>
-        </div>
+        <% if (theme.sidebar && theme.sidebar.categories) { %>
+            <% Object.keys(theme.sidebar.categories).forEach(function(category) { %>
+                <% const categoryData = theme.sidebar.categories[category]; %>
+                <div class="mb-4" x-data="{ open: false }">
+                    <button @click="open = !open"
+                        class="flex items-center justify-between w-full text-left p-2 rounded hover:bg-slate-50">
+                        <span class="flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-<%= categoryData.icon %>-500 mr-2"></span>
+                            <span class="font-medium text-slate-700"><%= category %></span>
+                        </span>
+                        <i class="fas fa-chevron-down text-slate-400 text-xs transition-transform"
+                            :class="open ? 'rotate-180' : ''"></i>
+                    </button>
+                    <div x-show="open" class="pl-4 mt-1 space-y-1" x-transition>
+                        <% categoryData.subcategories.forEach(function(subcategory) { %>
+                            <a href="<%= subcategory.link %>" class="block p-2 text-sm text-slate-600 hover:text-<%= subcategory.color %>-500 hover:bg-<%= subcategory.color %>-50 rounded">
+                                <i class="<%= subcategory.icon %> fa-fw mr-2 text-<%= subcategory.color %>-400"></i><%= subcategory.name %>
+                            </a>
+                        <% }); %>
+                    </div>
+                </div>
+            <% }); %>
+        <% } %>
     </nav>
 
     <div class="p-4 border-t border-slate-100">
         <h3 class="font-semibold text-sm uppercase text-slate-400 mb-4">页面导航</h3>
-        <a href="/" class="block p-2 text-slate-600 hover:text-orange-500 hover:bg-orange-50 rounded mb-1">
-            <i class="fas fa-home fa-fw mr-2 text-orange-400"></i>首页
-        </a>
-        <a href="<%= theme.menu.about %>" class="block p-2 text-slate-600 hover:text-orange-500 hover:bg-orange-50 rounded mb-1">
-            <i class="fas fa-user fa-fw mr-2 text-orange-400"></i>关于我
-        </a>
-        <a href="<%= theme.menu.friends_link %>" class="block p-2 text-slate-600 hover:text-orange-500 hover:bg-orange-50 rounded mb-1">
-            <i class="fas fa-project-diagram fa-fw mr-2 text-orange-400"></i>友链
-        </a>
+        <% if (theme.sidebar && theme.sidebar.navigation) { %>
+            <% theme.sidebar.navigation.forEach(function(item) { %>
+                <a href="<%= item.link %>" class="block p-2 text-slate-600 hover:text-<%= item.color %>-500 hover:bg-<%= item.color %>-50 rounded mb-1">
+                    <i class="<%= item.icon %> fa-fw mr-2 text-<%= item.color %>-400"></i><%= item.name %>
+                </a>
+            <% }); %>
+        <% } %>
     </div>
 
     <div class="p-4 border-t border-slate-100 lg:hidden">

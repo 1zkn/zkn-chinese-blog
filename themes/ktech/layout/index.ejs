@@ -4,18 +4,6 @@
     <p class="text-slate-600"><%= theme.index.header_subtitle %></p>
   </header>
   
-  <!-- Categories Links -->
-  <div class="flex flex-wrap justify-center gap-2 mb-8">
-    <a href="<%= url_for('/') %>" class="px-3 py-1 text-sm font-medium rounded-full border border-slate-300 text-slate-700 hover:border-slate-400 transition-colors <%= is_home() && !is_category() ? 'bg-slate-800 text-white border-slate-800' : '' %>">
-      全部
-    </a>
-    <% site.categories.map(function(category){ %>
-      <a href="<%= url_for(category.path) %>" class="px-3 py-1 text-sm font-medium rounded-full border border-<%= theme.category_colors[category.name] || 'gray' %>-200 text-<%= theme.category_colors[category.name] || 'gray' %>-600 hover:border-<%= theme.category_colors[category.name] || 'gray' %>-300 transition-colors <%= is_category(category.name) ? 'bg-' + (theme.category_colors[category.name] || 'gray') + '-500 text-white border-' + (theme.category_colors[category.name] || 'gray') + '-500' : '' %>">
-        <%= category.name %>
-      </a>
-    <% }) %>
-  </div>
-  
   <!-- Posts Grid -->
   <div class="grid grid-cols-1 gap-6 mb-12">
     <% page.posts.each(function(post){ %>
@@ -26,7 +14,7 @@
           <div class="h-2 bg-gray-500"></div>
         <% } %>
         <div class="p-5">
-          <p class="text-sm text-slate-500 mb-2"><%= date(post.date, 'D MMM. YYYY') %></p>
+          <p class="text-sm text-slate-500 mb-2"><%= date(post.date, 'MMM D - YYYY') %></p>
           <h2 class="text-xl font-semibold mb-3 text-slate-900">
             <a href="<%= url_for(post.path) %>" class="hover:text-orange-500 transition-colors"><%= post.title %></a>
           </h2>
@@ -35,7 +23,7 @@
           </p>
           <div class="flex flex-wrap gap-2">
             <% post.categories.data.forEach(function(category){ %>
-              <span class="text-xs font-semibold py-0.5 px-2 rounded bg-<%= theme.category_colors[category.name] || 'gray' %>-500 bg-opacity-10 text-<%= theme.category_colors[category.name] || 'gray' %>-600"><%= category.name %></span>
+              <span class="text-xs font-semibold py-0.5 px-2 rounded bg-<%= theme.category_colors[category.name] || 'gray' %>-500/10 text-<%= theme.category_colors[category.name] || 'gray' %>-600"><%= category.name %></span>
             <% }) %>
             <% post.tags.data.forEach(function(tag){ %>
               <span class="text-xs font-semibold py-0.5 px-2 rounded bg-gray-200 text-gray-600"><%= tag.name %></span>
