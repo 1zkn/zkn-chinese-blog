@@ -44,4 +44,15 @@
     s, del {
       @apply line-through;
     }
+    #article-content a {
+      @apply text-blue-600 underline transition-colors duration-200;
+    }
+    
+    #article-content a:hover {
+      @apply text-blue-800;
+    }
+    
+    .text-blue {
+      @apply text-blue-600;
+    }
   }

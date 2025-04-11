@@ -97,11 +97,11 @@ sidebar:
     - name: 关于我
       icon: fas fa-user
       color: orange
-      link: /about/
+      link: https://zkn.moe
     - name: 友链
       icon: fas fa-project-diagram
       color: orange
-      link: /friends/
+      link: https://zkn.moe/friends/
 
 # Tag Cloud Configuration
 tag_cloud:
