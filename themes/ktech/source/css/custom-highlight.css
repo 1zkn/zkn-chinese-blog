@@ -1,0 +1,47 @@
+/* ======================================= */
+/* 自定义代码高亮和行号样式 (独立文件)  */
+/* ======================================= */
+
+/* .highlight 是 Hexo 为代码块生成的外部容器 */
+.highlight {
+    position: relative;
+    /* 适配 atom-one-light 主题的背景色 */
+    background-color: #fafafa; 
+    border-radius: 0.5rem; /* 圆角 */
+    padding: 1rem; /* 内边距 */
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    overflow-x: auto; /* 内容超出时显示滚动条 */
+    counter-reset: line;
+  }
+  
+  /* 确保 pre 标签背景透明，并与外部容器对齐 */
+  .highlight pre {
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* 这是行号的核心样式 */
+  .highlight .line::before {
+    counter-increment: line;
+    content: counter(line);
+    
+    /* --- 行号的样式 --- */
+    position: absolute;
+    left: 1rem; /* 定位到左边内边距处 */
+    display: inline-block;
+    width: 2rem; /* 分配一个固定的宽度 */
+    text-align: right;
+    color: #a0a0a0; /* 行号的颜色 */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* 给代码本身增加一点左边距，为行号腾出空间 */
+  .highlight code {
+    display: block;
+    padding-left: 3rem !important;
+  }

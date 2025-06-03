@@ -52,7 +52,7 @@ sidebar:
         - name: 学习笔记
           icon: fas fa-book
           color: purple
-          link: /categories/study-notes/
+          link: /categories/笔记/学习笔记/
 #        - name: 读书笔记
 #          icon: fas fa-bookmark
 #          color: purple
