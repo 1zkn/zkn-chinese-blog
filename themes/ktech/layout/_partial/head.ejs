@@ -6,11 +6,27 @@
     <meta name="author" content="<%= config.author %>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
     <% if (is_post() && config.highlight.enable) { %>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+      <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              // Configura hljs prima di inizializzare
+              hljs.configure({
+                  languages: ['bash', 'javascript', 'python', 'html', 'css']
+              });
+              
+              // Evidenzia tutti i code blocks
+              document.querySelectorAll('pre code').forEach((block) => {
+                  hljs.highlightElement(block);
+              });
+          });
+      </script>
       <% } %>
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.5/cdn.min.js" defer></script>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="a31d27a4-1e88-4843-8496-f3ad205bf401"></script>
 </head>

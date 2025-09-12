@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: zkn的冒险日记
+title: Kave's blog
 subtitle: '技术与游戏的喵喵之旅'
 description: '一个懒猫的折腾日记，从代码深渊到提瓦特，踩坑无数，嗚嗚喵！'
 keywords: 编程, 原神, 服务器, 折腾, 喵喵
@@ -46,7 +46,7 @@ future: true
 syntax_highlighter: highlight.js
 highlight:
   enable: true
-  line_number: false
+  line_number: true
   auto_detect: false
   tab_replace: ''
   wrap: false

@@ -1,11 +1,11 @@
-<!-- Container per l'intero articolo -->
-<div class="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-sm border border-slate-200 mb-12 overflow-hidden">
-  <!-- Barra colorata in alto (opzionale) -->
-  <% if (page.categories && page.categories.length > 0) { %>
-    <div class="h-2 bg-<%= theme.category_colors[page.categories.data[0].name] || 'gray' %>-500"></div>
-  <% } else { %>
-    <div class="h-2 bg-gray-500"></div>
-  <% } %>
+<!-- Link home in alto a sinistra -->
+<div class="w-full max-w-3xl mx-auto">
+  <div class="mb-8">
+    <a href="<%= url_for('/') %>" class="group inline-flex items-center text-gray-400 hover:text-gray-800 transition-colors">
+      <span class="group-hover:-translate-x-1 transition-transform duration-200">←</span>
+      <span class="ml-2 font-mono text-sm">return</span>
+    </a>
+  </div>
   
   <!-- Contenuto dell'articolo con padding ottimizzato per mobile -->
   <article class="font-inconsolata p-3 md:p-8">
@@ -33,7 +33,7 @@
         prose-blockquote:py-2 
         prose-blockquote:px-4 
         prose-blockquote:rounded-r
-        prose-pre:!p-0 prose-pre:!bg-transparent max-w-none break-words overflow-wrap-anywhere">
+        max-w-none break-words overflow-wrap-anywhere">
       <div class="[&_img]:max-w-full [&_img]:h-auto [&_pre]:overflow-x-auto [&_pre]:max-w-full [&_table]:overflow-x-auto [&_table]:block [&_table]:max-w-full sm:[&_table]:inline-table [&_table]:whitespace-nowrap sm:[&_table]:whitespace-normal [&_p]:break-words [&_p]:overflow-wrap-anywhere [&_h2]:break-words [&_h2]:overflow-wrap-anywhere [&_h3]:break-words [&_h3]:overflow-wrap-anywhere [&_a]:break-words [&_a]:overflow-wrap-anywhere [&_code]:whitespace-pre-wrap [&_code]:break-words">
         <%- page.content %>
       </div>

@@ -3,9 +3,7 @@ menu:
   about: https://zkn.moe
   friends_link: https://zkn.moe/friends
 
-social:
-  github: https://github.com/1zkn
-  twitter: https://x.com/zknmoe
+
   email: mailto:kevin@zkn.app
 
 index:
@@ -52,7 +50,7 @@ sidebar:
         - name: 学习笔记
           icon: fas fa-book
           color: purple
-          link: /categories/笔记/学习笔记/
+          link: /categories/study-notes/
 #        - name: 读书笔记
 #          icon: fas fa-bookmark
 #          color: purple
