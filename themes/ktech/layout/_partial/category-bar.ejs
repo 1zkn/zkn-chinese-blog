@@ -1,0 +1,28 @@
+<div class="max-w-6xl mx-auto mb-6">
+  <div class="brutal-border bg-white p-4">
+    <p class="text-sm mb-3 font-mono">$ ls -l /categories</p>
+
+    <div class="flex flex-wrap gap-2" id="categoryTabs">
+      <a
+        href="<%= url_for('/') %>"
+        class="brutal-border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] <%= is_home() ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100' %>"
+      >
+        [ALL]
+        <span class="text-xs opacity-70 ml-1"><%= site.posts.length %></span>
+      </a>
+
+      <% site.categories.each(function(cat){ %> <% var colorKey =
+      theme.category_colors && theme.category_colors[cat.name] ?
+      theme.category_colors[cat.name] : 'gray'; %>
+
+      <a
+        href="<%= url_for(cat.path) %>"
+        class="brutal-border px-4 py-2 text-sm font-bold transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] <%= is_category(cat.name) ? 'bg-' + colorKey + '-300' : 'bg-white hover:bg-' + colorKey + '-100' %>"
+      >
+        [<%= cat.name.toUpperCase() %>]
+        <span class="text-xs opacity-70 ml-1">(<%= cat.length %>)</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</div>

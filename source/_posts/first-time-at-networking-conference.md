@@ -1,11 +1,12 @@
 ---
 title: 小白第一次跟网络大佬共处一室 （但没讲话）
 date: 2025-04-11 22:06:49
-categories: 
-- [ 生活, 成长历程 ]
+tags: 成长历程
+categories:
+  - [生活]
 ---
 
-已经不太记得在那里看到NeAcademy，可能是在Twitter上，又或者某个论坛的时候顺手瞥了一眼。什么Peering，IXP的CTO，网络工程师的..... 好奇心还是让我点了进去，打开了官网，读了读页面最上面那句「Mattina – Il momento formativo per gli studenti」，原来"学生也可以来？"。可惜注册的时候发现原来活动是只对大学生开放的...（悲）。
+已经不太记得在那里看到 NeAcademy，可能是在 Twitter 上，又或者某个论坛的时候顺手瞥了一眼。什么 Peering，IXP 的 CTO，网络工程师的..... 好奇心还是让我点了进去，打开了官网，读了读页面最上面那句「Mattina – Il momento formativo per gli studenti」，原来"学生也可以来？"。可惜注册的时候发现原来活动是只对大学生开放的...（悲）。
 
 以试试的心态点进了「partecipazione aziendale」来试图混进去？可惜那一页写得很清楚：需要 Partita IVA，一家真正注册的企业。我有 ASN，却不是一家公司。我关掉页面，心里轻轻叹了一口气。也许我真的不该出现在这种地方吧。
 
@@ -25,12 +26,9 @@ categories:
 
 **如果你也是个小小网络探险家，想了解他们当时讲的一些东西：**
 
-* *   **[Cloudflare - What is an Internet exchange point?](https://www.cloudflare.com/learning/cdn/glossary/internet-exchange-point-ixp/)** 
-*     
-* *   **[Cloudflare – What is BGP hijacking?](https://www.cloudflare.com/learning/security/glossary/bgp-hijacking/)**
-*     
-* *   **[APNIC – Why is securing BGP just so damn hard?](https://blog.apnic.net/2019/09/19/why-is-securing-bgp-just-so-damn-hard/)**
-*
+- **[Cloudflare - What is an Internet exchange point?](https://www.cloudflare.com/learning/cdn/glossary/internet-exchange-point-ixp/)**
+- **[Cloudflare – What is BGP hijacking?](https://www.cloudflare.com/learning/security/glossary/bgp-hijacking/)**
+- **[APNIC – Why is securing BGP just so damn hard?](https://blog.apnic.net/2019/09/19/why-is-securing-bgp-just-so-damn-hard/)**
 
 当然会议讲的不只是路由、ASN 和 peering。在后半段，有几位来自不同机构的大佬讲了一些更大的话题，比如 routing security 的威胁全景，还有"数字神经系统"这种听起来就很 sci-fi 的词。甚至还有一整段在讲网络和 AI 的结合。我也没有听太多，没太感兴趣。或者说，我的脑子还停在 BGP 和贴纸那里，跟不上那些更抽象的未来。（笑）
 
@@ -46,7 +44,7 @@ Cogent 的 salesman 正在跟我实习合作过的公司代表聊天，然后我
 
 我站在一旁听他们谈业务，带着点"我该不该听懂的表情"，静静地假装自己也是商务一员。
 
-之后就往展台那边走了一圈，开始顺 MIX 的贴纸。那张写着 *eat / sleep / peer / repeat* 的，让我一下子松了口气。在这种我几乎没发言的活动里，贴纸成了我最真实的参与方式。
+之后就往展台那边走了一圈，开始顺 MIX 的贴纸。那张写着 _eat / sleep / peer / repeat_ 的，让我一下子松了口气。在这种我几乎没发言的活动里，贴纸成了我最真实的参与方式。
 
 ## 没赶上听 DNS 和 DPI，悲
 
@@ -68,4 +66,3 @@ Cogent 的 salesman 正在跟我实习合作过的公司代表聊天，然后我
 
 **我没成为主角，也没留下声音。但我确实来过了，一个匿名的小白。**
 ![mix sticker](https://cf-cdn.nahida.one/file/kev/image-mix.jpg "Mix 的sticker")
-

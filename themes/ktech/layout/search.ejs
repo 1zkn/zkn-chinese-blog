@@ -1,0 +1,281 @@
+<div class="max-w-6xl mx-auto mb-6">
+  <div class="brutal-border bg-white p-6 mb-6">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <p class="text-sm text-gray-600">$ grep -r ".*" ~/notes</p>
+        <h1 class="text-3xl md:text-4xl font-bold mt-2">Search 搜索</h1>
+      </div>
+      <a
+        href="/"
+        class="brutal-btn brutal-border bg-white px-4 py-2 text-sm hover:bg-yellow-300"
+      >
+        ← BACK
+      </a>
+    </div>
+
+    <div class="relative">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="$ search --query='react hooks' ..."
+        class="brutal-border w-full px-4 py-3 text-lg focus:outline-none focus:ring-0"
+      />
+      <button
+        class="absolute right-2 top-2 brutal-btn brutal-border bg-white px-4 py-2 text-sm hover:bg-cyan-300"
+      >
+        [SEARCH]
+      </button>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4 mb-6">
+    <div class="md:col-span-2 brutal-border bg-white p-4">
+      <p class="text-sm font-bold mb-3">$ filter --by=category</p>
+      <div class="flex flex-wrap gap-2" id="categoryFilters">
+        <div
+          class="filter-chip brutal-border bg-black text-white px-3 py-2 text-sm font-bold cursor-pointer"
+          data-category="all"
+        >
+          [ALL]
+        </div>
+      </div>
+    </div>
+
+    <div class="brutal-border bg-black text-white p-4">
+      <p class="text-sm font-bold mb-3">$ wc -l notes/*</p>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span>Total notes:</span>
+          <span id="totalNotes" class="font-bold">Loading...</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Results:</span>
+          <span id="resultCount" class="font-bold text-green-400">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto">
+    <div class="brutal-border bg-white p-4 mb-4">
+      <p class="text-sm">
+        <span class="text-green-600">[+]</span>
+        Showing <span id="showingCount" class="font-bold">0</span> results
+      </p>
+    </div>
+
+    <div class="space-y-4" id="resultsContainer"></div>
+
+    <div id="noResults" class="brutal-border bg-white p-12 text-center hidden">
+      <p class="text-2xl font-bold mb-2">$ 404: RESULTS_NOT_FOUND</p>
+      <p class="text-gray-600 mb-4">换个词试试？</p>
+      <p class="mt-4"><span class="blink">_</span></p>
+    </div>
+  </div>
+</div>
+
+<script>
+    const themeColors = <%- JSON.stringify(theme.category_colors || {}) %>;
+  let postsData = [];
+  const searchInput = document.getElementById("searchInput");
+  const resultsContainer = document.getElementById("resultsContainer");
+  const categoryContainer = document.getElementById("categoryFilters");
+  const resultCount = document.getElementById("resultCount");
+  const showingCount = document.getElementById("showingCount");
+  const noResults = document.getElementById("noResults");
+  let activeCategory = "all";
+
+  // 1. 获取数据
+  fetch("/content.json")
+    .then((response) => {
+      if (!response.ok) throw new Error("HTTP error " + response.status);
+      return response.json();
+    })
+    .then((data) => {
+      console.log("📦 Loaded Data:", data); // 调试：在控制台打印数据结构
+      postsData = data;
+      initStats(data);
+      initCategories(data);
+      // 默认不显示，或者显示全部，这里设为显示全部
+      renderResults(data);
+    })
+    .catch((err) => {
+      console.error("❌ Fetch Error:", err);
+      resultsContainer.innerHTML = `<p class="text-red-500 font-bold">Error loading search data: ${err.message}</p>`;
+    });
+
+  // 2. 搜索监听
+  searchInput.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    filterData(query, activeCategory);
+  });
+
+  // 3. 过滤逻辑
+  function filterData(query, category) {
+    if (!postsData) return;
+
+    const filtered = postsData.filter((post) => {
+      // 兼容性处理：有些主题生成的 category 是字符串数组，有些是对象数组
+      let postCats = [];
+      if (post.categories) {
+        if (typeof post.categories[0] === "string") {
+          postCats = post.categories;
+        } else if (typeof post.categories[0] === "object") {
+          postCats = post.categories.map((c) => c.name);
+        }
+      }
+
+      const inCategory = category === "all" || postCats.includes(category);
+
+      // 兼容 content 或 text 字段
+      const contentText = post.content || post.text || "";
+      const matchQuery =
+        !query ||
+        (post.title && post.title.toLowerCase().includes(query)) ||
+        contentText.toLowerCase().includes(query);
+      return inCategory && matchQuery;
+    });
+    renderResults(filtered);
+  }
+
+  // 4. 渲染核心
+  function renderResults(posts) {
+    try {
+      // 更新计数器
+      if (resultCount) resultCount.innerText = posts.length;
+      if (showingCount) showingCount.innerText = posts.length;
+
+      if (posts.length === 0) {
+        resultsContainer.innerHTML = "";
+        if (noResults) noResults.classList.remove("hidden");
+        return;
+      }
+
+      if (noResults) noResults.classList.add("hidden");
+
+      const html = posts
+        .map((post) => {
+          // 日期安全处理
+          const dateStr = post.date
+            ? new Date(post.date).toLocaleDateString()
+            : "N/A";
+
+          // 分类安全处理
+          let catName = "UNCATEGORIZED";
+          if (post.categories && post.categories.length > 0) {
+            // 判断是对象还是字符串
+            catName =
+              typeof post.categories[0] === "string"
+                ? post.categories[0]
+                : post.categories[0].name;
+          }
+          let displayCatName = 'UNCATEGORIZED';
+
+          if (post.categories && post.categories.length > 0) {
+              const c = post.categories[0];
+              // 拿到分类名，比如 "Code"
+              const rawName = typeof c === 'string' ? c : c.name;
+              catName = rawName;
+              displayCatName = rawName.toUpperCase();
+          }
+          const colorKey = themeColors[catName] || 'gray';
+          const catColorClass = `bg-${colorKey}-300`;
+
+          // 摘要处理：去除 HTML 标签，只留纯文本
+          const rawContent = post.content || post.text || "";
+          // 简单的正则去标签
+          const plainText = rawContent.replace(/<[^>]+>/g, "");
+          const snippet = plainText.substring(0, 150) + "...";
+
+          // url 还是 path? 插件通常给 url 或 path
+          const postLink = post.url || post.path || "#";
+
+          return `
+                <div class="search-result brutal-border bg-white p-6 relative group hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all">
+                    <div class="flex flex-wrap items-start justify-between gap-4 mb-3 relative z-20">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs brutal-border ${catColorClass} px-2 py-1 font-bold">[${catName.toUpperCase()}]</span>
+                        </div>
+                        <span class="text-xs text-gray-500">${dateStr}</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-2">
+                        <a href="${postLink}" class="before:absolute before:inset-0 focus:outline-none">
+                            ${post.title}
+                        </a>
+                    </h3>
+
+                    <p class="text-sm text-gray-600 mb-3 line-clamp-2">
+                        ${snippet}
+                    </p>
+
+                    <div class="flex gap-4 text-xs text-gray-500 relative z-20">
+                         <span>🔗 Open Post</span>
+                    </div>
+                </div>
+                `;
+        })
+        .join("");
+
+      resultsContainer.innerHTML = html;
+    } catch (error) {
+      console.error("❌ Render Error:", error);
+      // 即使渲染失败，也让用户知道
+      resultsContainer.innerHTML = `<p class="text-red-500">Render Failed: ${error.message}. Check console (F12).</p>`;
+    }
+  }
+
+  // 5. 初始化分类按钮
+  function initCategories(data) {
+    if (!categoryContainer) return;
+    const cats = new Set();
+    data.forEach((p) => {
+      if (p.categories) {
+        p.categories.forEach((c) => {
+          // 兼容对象或字符串
+          const name = typeof c === "string" ? c : c.name;
+          cats.add(name);
+        });
+      }
+    });
+
+    categoryContainer.innerHTML = "";
+    // 重建 [ALL] 按钮
+    const allBtn = document.createElement("div");
+    allBtn.className =
+      "filter-chip brutal-border bg-black text-white px-3 py-2 text-sm font-bold cursor-pointer hover:bg-gray-800";
+    allBtn.innerText = "[ALL]";
+    allBtn.onclick = () => {
+      activeCategory = "all";
+      updateFilterStyles(allBtn);
+      filterData(searchInput.value.toLowerCase(), "all");
+    };
+    categoryContainer.appendChild(allBtn);
+
+    // 生成其他分类按钮
+    Array.from(cats).forEach((cat, index) => {
+      const btn = document.createElement("div");
+      btn.className = `filter-chip brutal-border bg-white px-3 py-2 text-sm font-bold cursor-pointer hover:bg-gray-100`;
+      btn.innerText = `[${cat.toUpperCase()}]`;
+      btn.onclick = () => {
+        activeCategory = cat;
+        updateFilterStyles(btn);
+        filterData(searchInput.value.toLowerCase(), cat);
+      };
+      categoryContainer.appendChild(btn);
+    });
+  }
+
+  function updateFilterStyles(activeBtn) {
+    document.querySelectorAll(".filter-chip").forEach((el) => {
+      el.className = `filter-chip brutal-border bg-white px-3 py-2 text-sm font-bold cursor-pointer hover:bg-gray-100`;
+    });
+    activeBtn.className = `filter-chip brutal-border bg-black text-white px-3 py-2 text-sm font-bold cursor-pointer hover:bg-gray-800`;
+  }
+
+  function initStats(data) {
+    if (document.getElementById("totalNotes")) {
+      document.getElementById("totalNotes").innerText = data.length;
+    }
+  }
+</script>

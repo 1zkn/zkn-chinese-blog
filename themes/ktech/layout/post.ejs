@@ -1,44 +1,278 @@
-<!-- Link home in alto a sinistra -->
-<div class="w-full max-w-3xl mx-auto">
-  <div class="mb-8">
-    <a href="<%= url_for('/') %>" class="group inline-flex items-center text-gray-400 hover:text-gray-800 transition-colors">
-      <span class="group-hover:-translate-x-1 transition-transform duration-200">←</span>
-      <span class="ml-2 font-mono text-sm">return</span>
-    </a>
-  </div>
+<%- partial('_partial/head') %>
+
+
+<style>
+  /* =========================================
+     基础排版 (Typography)
+     ========================================= */
+  .content h1,
+  .content h2,
+  .content h3,
+  .content h4,
+  .content h5,
+  .content h6 {
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #000;
+    line-height: 1.3;
+  }
   
-  <!-- Contenuto dell'articolo con padding ottimizzato per mobile -->
-  <article class="font-inconsolata p-3 md:p-8">
-    <header>
-      <h1 class="text-2xl font-semibold text-slate-900 break-words overflow-wrap-anywhere"><%= page.title %></h1>
-      <% if (page.date || page.idea_date) { %>
-        <div class="flex items-center gap-2">
-          <% if (page.idea_date) { %>
-            <span id="ideal-date">想法日期: <%= date(page.idea_date, 'YYYY-MM-DD') %></span>
-            <span class="border-l-2 border-slate-300 h-4"></span>
-          <% } %>
-          <% if (page.date) { %>
-            <span id="date">发布日期: <%= date(page.date, 'YYYY-MM-DD') %></span>
-          <% } %>
-        </div>
-      <% } %>
-    </header>
+  .content h2 {
+    font-size: 1.5rem;
+    border-bottom: 3px solid black;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    margin-top: 2.5rem;
+  }
   
-    <!-- 文章内容 con gestione ottimizzata dell'overflow -->
-    <div id="article-content" class="mt-8 prose prose-slate
-        prose-blockquote:border-orange-500 
-        prose-blockquote:bg-orange-50 
-        prose-blockquote:text-slate-700 
-        prose-blockquote:not-italic 
-        prose-blockquote:py-2 
-        prose-blockquote:px-4 
-        prose-blockquote:rounded-r
-        max-w-none break-words overflow-wrap-anywhere">
-      <div class="[&_img]:max-w-full [&_img]:h-auto [&_pre]:overflow-x-auto [&_pre]:max-w-full [&_table]:overflow-x-auto [&_table]:block [&_table]:max-w-full sm:[&_table]:inline-table [&_table]:whitespace-nowrap sm:[&_table]:whitespace-normal [&_p]:break-words [&_p]:overflow-wrap-anywhere [&_h2]:break-words [&_h2]:overflow-wrap-anywhere [&_h3]:break-words [&_h3]:overflow-wrap-anywhere [&_a]:break-words [&_a]:overflow-wrap-anywhere [&_code]:whitespace-pre-wrap [&_code]:break-words">
-        <%- page.content %>
+  .content h3 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .content p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    color: #374151;
+  }
+
+  /* 列表样式修复 */
+  .content ul {
+    list-style: square;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  .content ol {
+    list-style: decimal;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* 链接样式 */
+  .content a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+  }
+  .content a:hover {
+    background-color: #fde047;
+    color: black;
+  }
+
+  /* =========================================
+     代码样式核心修复 (Code Styles Fix)
+     ========================================= */
+     
+  /* 1. 行内代码 (Inline Code) - 排除 pre 里的 code */
+  .content :not(pre) > code {
+    background-color: #f3f4f6;
+    color: #db2777;            /* 骚粉色高亮 */
+    padding: 0.2rem 0.4rem;
+    border: 2px solid black;
+    font-size: 0.85rem;
+    font-family: "JetBrains Mono", monospace;
+    word-break: break-word;
+  }
+
+  /* 2. 代码块容器 (Code Block Wrapper) */
+  .content pre {
+    background-color: #000000;
+    color: #00ff00;            /* 终端绿 */
+    padding: 1rem;
+    border: 3px solid black;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    border-radius: 0;
+  }
+
+  /* 3. 代码块内部清洗 - 强制覆盖继承的样式 */
+  .content pre code {
+    background-color: transparent !important;
+    border: none !important;
+    color: inherit;
+    padding: 0;
+    font-size: 0.9rem;
+    font-family: "JetBrains Mono", monospace;
+    white-space: pre;
+  }
+
+  /* =========================================
+     其他元素 (Others)
+     ========================================= */
+  .content blockquote {
+    border-left: 6px solid black;
+    background: #f9fafb;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+  }
+
+  .content img {
+    border: 3px solid black;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem 0;
+  }
+
+  /* TOC 目录样式 */
+  .toc-container ol {
+    list-style: none;
+    padding-left: 0.5rem;
+  }
+  .toc-container ol ol {
+    padding-left: 1rem;
+  }
+  .toc-container a {
+    display: block;
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+    transition: all 0.1s;
+  }
+  .toc-container a:hover {
+    background-color: #fef08a;
+    transform: translateX(5px);
+  }
+  .toc-number {
+    display: none;
+  }
+</style>
+
+<div class="max-w-6xl mx-auto mb-8">
+  <div class="brutal-border bg-white p-6">
+    <div
+      class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+    >
+      <div>
+        <a href="<%= url_for('/') %>" class="group inline-block">
+          <p class="text-sm text-gray-600">$ cd ~/digital-garden</p>
+          <h1 class="text-3xl md:text-4xl font-bold mt-2">
+            <%= config.title || 'TERMINAL_BLOG' %>
+          </h1>
+          <p class="text-sm mt-2">
+            <%= config.subtitle || 'Welcome to my digital garden.' %>
+          </p>
+        </a>
+      </div>
+
+      <div class="flex gap-2">
+
+        <a
+          href="<%= url_for('/') %>"
+          class="brutal-btn brutal-border bg-white px-4 py-2 text-sm hover:bg-yellow-300"
+        >
+          [ HOME ]
+        </a>
+        <a
+          href="/search/"
+          class="brutal-btn brutal-border px-4 py-2 text-sm hover:bg-cyan-300 transition-colors"
+        >
+          [ SEARCH ]
+        </a>
       </div>
     </div>
-  </article>
+  </div>
 </div>
 
-<%- include('_partial/disqus') %>
+  <div class="max-w-6xl mx-auto">
+    <div class="grid lg:grid-cols-4 gap-6">
+      <div class="lg:col-span-1 hidden lg:block">
+        <div class="brutal-border bg-white p-4 sticky top-4">
+          <p class="text-xs font-bold mb-3 border-b-2 border-black pb-2">
+            $ cat index.txt (TOC)
+          </p>
+
+          <div class="toc-container">
+            <% if (page.content && toc(page.content)) { %> <%- toc(page.content,
+            {list_number: false, max_depth: 3}) %> <% } else { %>
+            <p class="text-xs text-gray-500">// No table of contents</p>
+            <% } %>
+          </div>
+
+          <div class="mt-6 pt-4 border-t-2 border-black">
+            <p class="text-xs font-bold mb-2">METADATA</p>
+            <div class="text-xs space-y-2 font-mono">
+              <p>📅 <%= date(page.date, 'YYYY-MM-DD') %></p>
+              <p>📝 <%= page.content.replace(/<[^>]*>/g, "").length %> chars</p>
+              <p>
+                ⏱️ ~<%= Math.round(page.content.replace(/<[^>]*>/g, "").length /
+                500) + 1 %> min read
+              </p>
+              <p>✏️ Updated: <%= date(page.updated, 'MM-DD') %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3">
+        <article class="brutal-border bg-white p-6 md:p-8 mb-6">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <% if (page.categories && page.categories.length) { %>
+            <span
+              class="text-xs brutal-border bg-<%= theme.category_colors && theme.category_colors[page.categories.data[0].name] ? theme.category_colors[page.categories.data[0].name] : 'gray' %>-300 px-3 py-1 font-bold"
+            >
+              [<%= page.categories.data[0].name.toUpperCase() %>]
+            </span>
+            <% } %> <% if (page.tags && page.tags.length) { %> <%
+            page.tags.forEach(function(tag){ %>
+            <a
+              href="<%= url_for(tag.path) %>"
+              class="text-xs brutal-border px-3 py-1 hover:bg-gray-200 transition-colors"
+            >
+              #<%= tag.name %>
+            </a>
+            <% }) %> <% } %>
+          </div>
+
+          <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+            <%= page.title %>
+          </h1>
+
+          <% if (page.description || page.excerpt) { %>
+          <p class="text-gray-600 border-l-4 border-gray-300 pl-4 italic mb-4">
+            <%= page.description || strip_html(page.excerpt) %>
+          </p>
+          <% } %>
+
+          <div
+            class="flex gap-4 text-xs text-gray-500 lg:hidden border-t border-gray-200 pt-4 mt-4"
+          >
+            <span>📅 <%= date(page.date, 'MM-DD') %></span>
+            <span>⏱️ <%= Math.round(page.content.length / 500) %> min</span>
+          </div>
+        </article>
+
+        <div class="brutal-border bg-white p-6 md:p-8 content overflow-hidden">
+          <%- page.content %>
+        </div>
+
+        
+
+        <div class="brutal-border bg-black text-white p-6 mt-6">
+          <p class="text-sm mb-4 font-mono">$ git log -1 --format="%h %s"</p>
+          <div class="text-xs text-gray-400 font-mono space-y-1">
+            <p>
+              > commit <%= date(page.date, 'x').substring(0,7) %> (HEAD -> main)
+            </p>
+            <p>> Author: <%= config.author || 'ZKevin' %></p>
+            <p>> Date: <%= date(page.date, 'ddd MMM DD HH:mm:ss YYYY') %></p>
+            <p class="mt-2 text-green-400">> feat: <%= page.title %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <div class="max-w-6xl mx-auto mt-16">
+        <div class="brutal-border bg-white p-8">
+            <p class="text-sm font-bold mb-4 border-b-2 border-black pb-2 inline-block">$ cat /var/log/guestbook</p>
+            <%- include('_partial/disqus') %>
+        </div>
+    </div>
+
+</body>

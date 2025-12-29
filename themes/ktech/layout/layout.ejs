@@ -2,36 +2,13 @@
 <html>
 <%- include('_partial/head') %>
 
-<body class="bg-gray-50 font-mono" x-data="{ mobileMenu: false }">
-    
-    <div class="container mx-auto px-6 py-12 max-w-4xl">
-        <div class="flex flex-col">
-            
-            <!-- Contenuto principale -->
-            <main class="flex-grow">
-                <div class="content">
-                    <%- body %>
-                </div>
-            </main>
-            
-        </div>
-    </div>
-    
+<body class="bg-white min-h-screen p-4">
+    <%- body %>
+
     <%- include('_partial/footer') %>
     
     <% if (is_post() && config.highlight.enable) { %>
     
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre code').forEach((block) => {
-      block.classList.remove('hljs');
-      block.innerHTML = block.innerText;
-    });
-    hljs.highlightAll();
-  });
-</script>
     <% } %>
     
 </body>

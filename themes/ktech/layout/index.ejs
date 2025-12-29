@@ -1,45 +1,85 @@
-<!-- Header minimale -->
-<header class="mb-16">
-  <h1 class="text-6xl font-light text-gray-800 mb-2"><%= config.title %></h1>
-  <div class="w-20 h-0.5 bg-gray-800 mb-4"></div>
-  <p class="text-gray-600 font-mono text-lg"><%= theme.index.header_subtitle %></p>
-</header>
+<%- partial('_partial/header') %> <%- partial('_partial/category-bar') %>
 
-<!-- Lista post minimale -->
-<div class="space-y-12">
-  <% page.posts.each(function(post){ %>
-    <article class="border-b border-gray-200 pb-8 last:border-b-0">
-      <!-- Data -->
-      <time class="text-sm text-gray-500 font-mono"><%= date(post.date, 'YYYY-MM-DD') %></time>
-      
-      <!-- Titolo -->
-      <h2 class="text-2xl font-light text-gray-900 mt-2 mb-3">
-        <a href="<%= url_for(post.path) %>" class="hover:text-gray-600 transition-colors"><%= post.title %></a>
-      </h2>
-      
-      <!-- Excerpt -->
-      <p class="text-gray-600 leading-relaxed mb-4">
-        <%= post.excerpt || post.description || strip_html(post.content).substring(0, 180) + '...' %>
+<div class="max-w-6xl mx-auto">
+  <% var postsList = (page.posts && page.posts.length > 0) ? page.posts :
+  site.posts.sort('date', -1); %>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="notesGrid">
+    <% postsList.each(function(post){ %>
+    <article
+      class="note-card brutal-border bg-white p-5 relative group hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all flex flex-col h-full"
+    >
+      <div class="flex items-start justify-between mb-3 relative z-20">
+        <% if (post.categories && post.categories.length > 0) { %> <% var
+        catName = post.categories.data[0].name; %> <% var catColor =
+        theme.category_colors && theme.category_colors[catName] ?
+        theme.category_colors[catName] : 'gray'; %>
+        <a
+          href="<%= url_for(post.categories.data[0].path) %>"
+          class="text-xs brutal-border bg-<%= catColor %>-300 px-2 py-1 font-bold hover:brightness-110"
+        >
+          [ <%= catName.toUpperCase() %> ]
+        </a>
+        <% } else { %>
+        <span class="text-xs brutal-border bg-gray-200 px-2 py-1 font-bold"
+          >[ NULL ]</span
+        >
+        <% } %>
+        <span class="text-xs text-gray-500 font-bold"
+          ><%= date(post.date, 'MM-DD') %></span
+        >
+      </div>
+
+      <h3 class="font-bold text-xl mb-3 flex-grow">
+        <a
+          href="<%= url_for(post.path) %>"
+          class="before:absolute before:inset-0 focus:outline-none decoration-2 underline-offset-4 group-hover:underline"
+        >
+          <%= post.title %>
+        </a>
+      </h3>
+
+      <p class="text-sm text-gray-600 mb-4 line-clamp-3 overflow-hidden">
+        <%= post.excerpt || strip_html(post.content).substring(0, 120) %>...
       </p>
-      
-      <!-- Read more link -->
-      <a href="<%= url_for(post.path) %>" class="text-gray-800 font-mono text-sm hover:underline">
-        read more →
-      </a>
-    </article>
-  <% }) %>
-</div>
 
-<!-- Pagination minimale -->
-<% if (page.total > 1) { %>
-  <nav class="mt-16 pt-8 border-t border-gray-200 text-center">
-    <div class="space-x-4 font-mono">
-      <% if (page.prev) { %>
-        <a href="<%= url_for(page.prev_link) %>" class="text-gray-800 hover:underline">← precedente</a>
-      <% } %>
-      <% if (page.next) { %>
-        <a href="<%= url_for(page.next_link) %>" class="text-gray-800 hover:underline">successivo →</a>
-      <% } %>
-    </div>
-  </nav>
-<% } %>
+      <div class="flex gap-2 flex-wrap mt-auto relative z-20">
+        <% if (post.tags && post.tags.length) { %> <%
+        post.tags.forEach(function(tag){ %>
+        <a
+          href="<%= url_for(tag.path) %>"
+          class="text-[10px] border border-black px-1 hover:bg-black hover:text-white transition-colors"
+        >
+          #<%= tag.name %>
+        </a>
+        <% }) %> <% } %>
+      </div>
+    </article>
+    <% }) %>
+  </div>
+
+  <% if (page.total > 1){ %>
+  <div class="flex justify-center mt-12 gap-4">
+    <%- paginator({ prev_text: '← PREV', next_text: 'NEXT →', escape: false })
+    %>
+  </div>
+  <style>
+    .page-number,
+    .extend {
+      border: 3px solid black;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      margin: 0 0.25rem;
+    }
+    .page-number.current {
+      background: black;
+      color: white;
+    }
+    .page-number:hover,
+    .extend:hover {
+      background: #fde047;
+      color: black;
+    }
+  </style>
+  <% } %>
+</div>

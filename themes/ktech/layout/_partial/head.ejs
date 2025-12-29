@@ -7,26 +7,56 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
-    <% if (is_post() && config.highlight.enable) { %>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-      <script>
-          document.addEventListener('DOMContentLoaded', function () {
-              // Configura hljs prima di inizializzare
-              hljs.configure({
-                  languages: ['bash', 'javascript', 'python', 'html', 'css']
-              });
-              
-              // Evidenzia tutti i code blocks
-              document.querySelectorAll('pre code').forEach((block) => {
-                  hljs.highlightElement(block);
-              });
-          });
-      </script>
-      <% } %>
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.5/cdn.min.js" defer></script>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="a31d27a4-1e88-4843-8496-f3ad205bf401"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+     <style>
+        * {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .brutal-border {
+            border: 3px solid black;
+        }
+        
+        .brutal-btn {
+            transition: all 0.1s ease;
+        }
+        
+        .brutal-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px black;
+        }
+        
+        .brutal-btn:active {
+            transform: translate(0, 0);
+            box-shadow: 0px 0px 0px black;
+        }
+
+        .note-card {
+            transition: all 0.15s ease;
+        }
+
+        .note-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 6px 6px 0px black;
+        }
+
+        .category-tab {
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+
+        .category-tab.active {
+            background-color: black;
+            color: white;
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
 </head>
