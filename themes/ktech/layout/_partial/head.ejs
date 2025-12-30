@@ -1,62 +1,78 @@
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= config.title %><% if (page.title){ %> | <%= page.title %><% } %></title>
-    <meta name="description" content="<%= config.description %>">
-    <meta name="author" content="<%= config.author %>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-     <style>
-        * {
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        .brutal-border {
-            border: 3px solid black;
-        }
-        
-        .brutal-btn {
-            transition: all 0.1s ease;
-        }
-        
-        .brutal-btn:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 4px 4px 0px black;
-        }
-        
-        .brutal-btn:active {
-            transform: translate(0, 0);
-            box-shadow: 0px 0px 0px black;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= config.title %><% if (page.title){ %> | <%= page.title %><% } %>
+  </title>
+  <meta name="description" content="<%= config.description %>" />
+  <meta name="author" content="<%= config.author %>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      font-family: "JetBrains Mono", monospace;
+    }
 
-        .note-card {
-            transition: all 0.15s ease;
-        }
+    .brutal-border {
+      border: 3px solid black;
+    }
 
-        .note-card:hover {
-            transform: translate(-3px, -3px);
-            box-shadow: 6px 6px 0px black;
-        }
+    .brutal-btn {
+      transition: all 0.1s ease;
+    }
 
-        .category-tab {
-            cursor: pointer;
-            transition: all 0.1s ease;
-        }
+    .brutal-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0px black;
+    }
 
-        .category-tab.active {
-            background-color: black;
-            color: white;
-        }
+    .brutal-btn:active {
+      transform: translate(0, 0);
+      box-shadow: 0px 0px 0px black;
+    }
 
-        .blink {
-            animation: blink 1s infinite;
-        }
+    .note-card {
+      transition: all 0.15s ease;
+    }
 
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-    </style>
+    .note-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0px black;
+    }
+
+    .category-tab {
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+
+    .category-tab.active {
+      background-color: black;
+      color: white;
+    }
+
+    .blink {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%,
+      50% {
+        opacity: 1;
+      }
+      51%,
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+  <script
+    defer
+    src="https://cloud.umami.is/script.js"
+    data-website-id="4e753149-0f75-44e8-b263-8f4b858745cb"
+  ></script>
 </head>
